@@ -7,17 +7,24 @@ import { Loader } from 'components/Loader';
 const SelectedMovie = () => {
   const { filmId } = useParams();
   const [movie, setMovie] = useState('');
+  const [loader, setLoader] = useState(false);
+
   const location = useLocation();
   const backLink = useRef(location.state?.from ?? '/');
 
   useEffect(() => {
+    setLoader(true);
+
     fetchMovieId(filmId)
       .then(setMovie)
-      .catch(error => alert(error));
+      .catch(error => alert(error))
+      .finally(setLoader(false));
   }, [filmId]);
 
   return (
     <>
+      {loader && <Loader />}
+
       <Link to={backLink.current}>
         <button>go back</button>
       </Link>

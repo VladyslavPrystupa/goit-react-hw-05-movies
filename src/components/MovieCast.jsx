@@ -1,3 +1,5 @@
+import PropTypes from 'prop-types';
+
 export const MovieCast = ({ cast }) => {
   return (
     <ul>
@@ -17,4 +19,15 @@ export const MovieCast = ({ cast }) => {
       ))}
     </ul>
   );
+};
+
+MovieCast.propTypes = {
+  cast: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      name: PropTypes.string.isRequired,
+      profile_path: PropTypes.string,
+      character: PropTypes.string.isRequired,
+    })
+  ),
 };

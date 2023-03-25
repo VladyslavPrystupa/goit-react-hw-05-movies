@@ -1,23 +1,6 @@
+import PropTypes from 'prop-types';
+
 export const Searchbar = ({ onSubmit }) => {
-  // const [searcValue, setSearcValue] = useState('');
-
-  // const handleChange = evt => {
-  //   const { value } = evt.target;
-
-  //   setSearcValue(value);
-  // };
-
-  // const reset = () => {
-  //   setSearcValue('');
-  // };
-
-  // const handleSubmit = evt => {
-  //   evt.preventDefault();
-
-  //   onSearch(searcValue);
-
-  //   reset();
-  // };
   return (
     <header>
       <form onSubmit={onSubmit}>
@@ -28,10 +11,12 @@ export const Searchbar = ({ onSubmit }) => {
           autoFocus
           placeholder="Search movies"
           name="searcValue"
-          // value={searcValue}
-          // onChange={handleChange}
         />
       </form>
     </header>
   );
+};
+
+Searchbar.propTypes = {
+  onSubmitL: PropTypes.func.isRequired,
 };

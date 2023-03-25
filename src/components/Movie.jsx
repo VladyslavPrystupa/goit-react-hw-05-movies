@@ -1,11 +1,10 @@
-// import BackButton from './BackButton';
+import PropTypes from 'prop-types';
 
 export const Movie = ({
   movie: { poster_path, original_title, title, vote_average, overview, genres },
 }) => {
   return (
     <>
-      {/* <BackButton /> */}
       <div style={{ display: 'flex', gap: '30px' }}>
         <img
           src={`https://image.tmdb.org/t/p/original${poster_path}`}
@@ -27,4 +26,20 @@ export const Movie = ({
       </div>
     </>
   );
+};
+
+Movie.propTypes = {
+  movie: PropTypes.shape({
+    poster_path: PropTypes.string.isRequired,
+    original_title: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+    vote_average: PropTypes.number.isRequired,
+    overview: PropTypes.string.isRequired,
+    genres: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.number.isRequired,
+        name: PropTypes.string.isRequired,
+      })
+    ).isRequired,
+  }),
 };

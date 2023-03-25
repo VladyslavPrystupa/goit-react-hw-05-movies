@@ -4,12 +4,12 @@ import { useEffect, useState, useMemo } from 'react';
 import { fetchMoviesByQuery } from 'services/api';
 import { useSearchParams } from 'react-router-dom';
 
-export const Movies = () => {
+const Movies = () => {
   const [searchedMovies, setSearchedMovies] = useState([]);
   const [searchParams, setSearchParams] = useSearchParams();
 
   const memoQuery = useMemo(
-    () => searchParams.get('query') ?? [],
+    () => searchParams.get('query') ?? '',
     [searchParams]
   );
 
@@ -21,17 +21,14 @@ export const Movies = () => {
 
   const onSubmit = e => {
     e.preventDefault();
-    const form = e.currentTarget;
-    const { value } = form.elements.searcValue;
+    const { value } = e.currentTarget.elements.searcValue;
+    e.currentTarget.reset();
 
     if (value === '') {
       setSearchParams({});
       return alert('Enter movie name');
     }
-
     setSearchParams({ query: value });
-
-    form.reset();
   };
 
   return (
@@ -41,3 +38,5 @@ export const Movies = () => {
     </div>
   );
 };
+
+export default Movies;

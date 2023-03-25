@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { fetchCast } from 'services/api';
 import { MovieCast } from 'components/MovieCast';
 
-export const Cast = params => {
+const Cast = () => {
   const { filmId } = useParams();
   const [cast, setCast] = useState([]);
 
@@ -16,7 +16,9 @@ export const Cast = params => {
   return (
     <div>
       {cast.length === 0 && <p>no cast</p>}
-      <MovieCast cast={cast} />{' '}
+      <MovieCast cast={cast} />
     </div>
   );
 };
+
+export default Cast;

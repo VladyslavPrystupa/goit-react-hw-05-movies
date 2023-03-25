@@ -1,13 +1,14 @@
 import { useParams, Link, Outlet, useLocation } from 'react-router-dom';
 import { fetchMovieId } from 'services/api';
-import { useEffect, useState } from 'react';
+import { Suspense, useEffect, useRef, useState } from 'react';
 import { Movie } from 'components/Movie';
+import { Loader } from 'components/Loader';
 
-export const SelectedMovie = () => {
+const SelectedMovie = () => {
   const { filmId } = useParams();
   const [movie, setMovie] = useState('');
   const location = useLocation();
-  const backLink = location.state?.from ?? '/';
+  const backLink = useRef(location.state?.from ?? '/');
 
   useEffect(() => {
     fetchMovieId(filmId)
@@ -17,14 +18,26 @@ export const SelectedMovie = () => {
 
   return (
     <>
-      <Link to={backLink}>Go back</Link>
+      <Link to={backLink.current}>
+        <button>go back</button>
+      </Link>
       <Movie movie={movie} />
 
-      <Link to="reviews">Reviews</Link>
-      <br />
-      <Link to="cast">Cast</Link>
+      <h2>Additional information</h2>
 
-      <Outlet />
+      <ul>
+        <li>
+          <Link to="cast">Cast</Link>
+        </li>
+        <li>
+          <Link to="reviews">Reviews</Link>
+        </li>
+      </ul>
+      <Suspense fallback={<Loader />}>
+        <Outlet />
+      </Suspense>
     </>
   );
 };
+
+export default SelectedMovie;

@@ -7,7 +7,11 @@ export const ListOfMovies = ({ list }) => {
     <ul>
       {list.map(({ title, id }) => (
         <li key={id}>
-          <Link to={`/movies/${id}`} state={{ from: location }}>
+          <Link
+            className="item-movie"
+            to={`/movies/${id}`}
+            state={{ from: location }}
+          >
             {title}
           </Link>
         </li>

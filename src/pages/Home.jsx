@@ -1,19 +1,25 @@
 import { ListOfMovies } from 'components/ListOfMovies';
+// import { Loader } from 'components/Loader';
 import { useEffect, useState } from 'react';
 import { fetchTrending } from 'services/api';
 
-export const Home = () => {
+const Home = () => {
   const [trendingFilms, setTrendingFilms] = useState([]);
+  // const [loader, setLoader] = useState(false);
 
   useEffect(() => {
+    // setLoader(true);
     fetchTrending()
       .then(data => setTrendingFilms(data))
       .catch(error => alert(error));
+    // .finally(setLoader(false));
   }, []);
 
   return (
-    <div>
+    <>
+      {/* {loader && <Loader />} */}
       <ListOfMovies list={trendingFilms} />
-    </div>
+    </>
   );
 };
+export default Home;
